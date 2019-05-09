@@ -56,6 +56,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'html'),
+            os.path.join(BASE_DIR, '')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -75,10 +76,21 @@ WSGI_APPLICATION = 'Safari_sys.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'matprog',
+        'USER': 'deno101',
+        'HOST': 'localhost',
+        'PASSWORD': 'denniz',
+        'PORT': '',
     }
 }
 
@@ -118,7 +130,7 @@ USE_TZ = True
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/js'),
     os.path.join(BASE_DIR, 'static/css'),
-    os.path.join(BASE_DIR, 'static/img')
+    os.path.join(BASE_DIR, 'static/img'),
 ]
 
 # Static files (CSS, JavaScript, Images)
