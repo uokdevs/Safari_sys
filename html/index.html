@@ -11,13 +11,15 @@
         <title>Matatu booking| Denniz inc.</title>
     </head>
     <body>
-        <nav class="nav navbar-dark sticky-top bg-dark navbar-expand-md">
+
+{#        top navigation bar#}
+        <nav class="nav navbar-light sticky-top bg-light navbar-expand-md">
             <div class="container-fluid">
                 <a class="navbar-brand"><img src="{% static 'logo.png' %}"></a>
                 <button style="float: right; margin: 1rem;" type="button" data-toggle="collapse" data-target="#dropdown" class="navbar-toggler navbar-inverse">
                     <span class="navbar-toggler-icon "></span>
                 </button>
-                <div style="margin-right: 18rem" class="collapse navbar-collapse" id="dropdown">
+                <div style="margin-right: 22rem; margin-top: 0px" class="collapse navbar-collapse" id="dropdown">
                     <ul class="navbar-nav ml-auto ">
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'index' %}">Home</a>
@@ -32,9 +34,27 @@
                             <a class="nav-link" href="#">Help</a>
                         </li>
                     </ul>
-                    <div>{% load iflogin.html %}</div>
                 </div>
             </div>
         </nav>
+
+{#        corousel slider aspect ratio 6:1, 900x150, 2400,400#}
+        <div class="carousel slide" id="slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#slide" data-slide-to="0" class="active"></li>
+                <li data-target="#slide" data-slide-to="1" ></li>
+                
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active po">
+                    <img src="{% static  'temp1.jpg'%}" alt="temp1">
+                </div>
+
+                <div class="carousel-item ">
+                    <img src="{% static  'temp2.jpg'%}" alt="temp2">
+                </div>
+            </div>
+
+        </div>
     </body>
 </html>
