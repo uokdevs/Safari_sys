@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <script>
+        var arry = {{ arr|safe }}
+        autocomplete(document.getElementById('my_input'), arry);
+        autocomplete(document.getElementById('my_input1'), arry);
+    </script>
+{% endblock %}
