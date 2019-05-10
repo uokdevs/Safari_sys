@@ -1,15 +1,32 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+import os
+import json
+from . import forms
 
+json_file = open(os.path.join(os.getcwd(), 'Info.json'))
+json_data = json.load(json_file)
 
-# co-ordinate request and html response
+dst = json_data['Destinations']
+const = 'Matatu Booking| '
+
+def handle_post(rqst,):
+    form = forms.BookingForm(rqst)
+# co-ordinate request and html responses
 def home(request):
     '''
     handles empty request --> 'localhost/'
     :param request:
     :return:
     '''
-    return render(request, 'index.html')
+
+    if request.method == 'POST':
+        handle_post(request)
+
+    return render(request, 'index.html', {
+        'title': const+'Booking Home',
+        'arr': dst,
+    })
 
 
 def FAQs(request):
@@ -18,7 +35,14 @@ def FAQs(request):
     :param request:
     :return:
     '''
-    return render(request, 'FAQ.html')
+
+    if request.method == 'POST':
+        handle_post(request)
+
+    return render(request, 'FAQ.html', {
+        'title': const+'FAQ\'s',
+        'arr': dst,
+    })
 
 
 def contact_us(request):
@@ -27,7 +51,14 @@ def contact_us(request):
     :param request:
     :return:
     '''
-    return render(request, 'contact-us.html')
+
+    if request.method == 'POST':
+        handle_post(request)
+
+    return render(request, 'contact-us.html', {
+        'title': 'Contact-us',
+        'arr': dst,
+    })
 
 
 def ret_fontawesome(request, doc_path=''):
