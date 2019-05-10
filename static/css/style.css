@@ -50,3 +50,43 @@ figure {
 .phone{
     left: 50%;
 }
+
+#btn_book{
+  color: #6f42c1;
+  font-weight: 900;
+}
+
+.autocomplete-items{
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+*{
+  box-sizing: border-box;
+}
+.autocomplete{
+  position: relative;
+  display: inline-block;
+  width: 90%;
+}
+.autocomplete-items div{
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+
+}
+
+.autocomplete-items div:hover {
+  background-color: #7abaff;
+}
+
+.autocomplete-active{
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}

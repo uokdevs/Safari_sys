@@ -1,9 +1,8 @@
 
 function autocomplete(inp, arr){
     var currentFocus;
-
     inp.addEventListener("input", function (e) {
-        var a, b, i, val = this.value;
+        var a, b, val = this.value;
         closeAllLists();
 
         if (!val){
@@ -13,15 +12,16 @@ function autocomplete(inp, arr){
         currentFocus = -1;
 
         a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete-list");
-
+        a.setAttribute("id", "autocomplete-list");
+        a.setAttribute('class', 'autocomplete-items');
         this.parentNode.appendChild(a);
 
-        for (i = 0; i < arr.length; i++){
+        for (var i = 0; i < arr.length; i++){
             if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()){
                 b = document.createElement("DIV");
 
-                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "<strong>";
+                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].substr(val.length);
                 b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
 
                 b.addEventListener("click", function (e) {
@@ -36,7 +36,7 @@ function autocomplete(inp, arr){
     });
 
     inp.addEventListener("keydown", function (e) {
-        var x = document.getElementById(this.id + "autocomplete-list");
+        var x = document.getElementById("autocomplete-list");
 
         if (x) x = x.getElementsByTagName("DIV");
         if (e.keyCode == 40){
@@ -92,3 +92,4 @@ function autocomplete(inp, arr){
         closeAllLists(e.target);
     })
 }
+
