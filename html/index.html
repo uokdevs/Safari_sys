@@ -1,10 +1,55 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% load static %}
+    <div id="Container" style="background-image: url({% static 'info-bg.jpg' %}); position: relative;" xmlns="http://www.w3.org/1999/html">
+        <div class="container  row visible-on ">
 
-    <script>
+            <div class="col-lg-6 col-md-6 d-none d-md-block infoma">
+                <h4>Welcome To Mat-Trans</h4>
+                <p> <span class="fa fa-1x fa-map-marker"></span> Enter your Location</p>
+                <p> <span class="fa fa-1x fa-map-marker"></span> Enter Destination</p>
+                <p> <span class="fa fa-1x fa-mouse-pointer"></span> Click Submit</p>
+                <p> <span class="fa fa-1x fa-bus"></span> Find the Cheapest Most Convenient Route</p>
+            </div>
+
+            <div class="container col-lg-6 col-md-6 col-sm-12">
+            <form method="POST" role="form">
+                {% csrf_token %}
+                <table border="0" class="info-form">
+                    <tr>
+                        <td id="top">From:</td>
+                    </tr>
+                    <tr>
+                        <td align="center" id="info-input"><input id="input1" type="text" name="from" placeholder="Departure Location" size="30"></td>
+                    </tr>
+                    <tr>
+                        <td>To:</td>
+                    </tr>
+                    <tr>
+                        <td align="center" id="info-input"><input id="input2" type="text" name="to" placeholder="Destination" size="30"></td>
+                    </tr>
+                    <tr>
+                        <td>Departure Date:</td>
+                    </tr>
+                    <tr>
+                        <td align="left" id="info-input"><input type="date" placeholder="DD/MM/YYYY" size="30"></td>
+                    </tr>
+                    <tr>
+                        <td align="right" id="bottom"><button type="submit">Submit</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        </div>
+
+
+    </div>
+
+    <script type="text/javascript">
+
         var arry = {{ arr|safe }}
-        autocomplete(document.getElementById('my_input'), arry);
-        autocomplete(document.getElementById('my_input1'), arry);
+        autocomplete(document.getElementById('input1'), arry);
+        autocomplete(document.getElementById('input2'), arry);
     </script>
 {% endblock %}
