@@ -20,6 +20,76 @@
     <title>{{ title }}</title>
 </head>
 <body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+        <a class="navbar-brand"><img src="{% static 'logo.png' %}" alt="Logo"></a>
+        <button type="button" data-toggle="collapse" data-target="#dropDown" class="navbar-toggler navbar-inverse" >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="dropDown">
+            <ul class="nav nav-tabs  ml-auto navbar-nav">
+                <li class="active nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact-us" >Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'FAQ' %}">FAQ's</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
+{% block content %}
+
+{% endblock %}
+
+    <div class="jumbotron row p-2" id="contact-us">
+        <div class="col-sm-12 col-md-6 col-lg-4 surround">
+            <h3>Nakuru Office</h3>
+            <div class="pl-2">
+                <span class="fa fa-1x fa-phone pb-3 "></span> +254(0) 723455754 <br>
+                <span class="fa fa-1x fa-phone pb-3"></span> +254(0) 2034678734 <br>
+                <span class="fa fa-1x fa-envelope pb-3"></span> <a href="mailto:mat_prog_kisumu@safsys.com" >mat_prog_nairobi@safsys.com</a><br>
+                <span class="fa fa-1x fa-map-marker pb-3"></span> Mbukaki Building opposite Mololine Bus Stop
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-4 surround">
+            <h3>Nairobi Office</h3>
+            <div class="pl-2">
+                <span class="fa fa-1x fa-phone pb-3 "></span> +254(0) 723455754 <br>
+                <span class="fa fa-1x fa-phone pb-3"></span> +254(0) 2034678734 <br>
+                <span class="fa fa-1x fa-envelope pb-3"></span> <a href="mailto:mat_prog_kisumu@safsys.com" >mat_prog_nakuru@safsys.com</a><br>
+                <span class="fa fa-1x fa-map-marker pb-3"></span> Shopper Plaza on the Nakuru-Eldoret Highway
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-4 surround">
+            <h3>Kisumu Office</h3>
+            <div class="pl-2 ">
+                <span class="fa fa-1x fa-phone pb-3 "></span> +254(0) 723455754 <br>
+                <span class="fa fa-1x fa-phone pb-3"></span> +254(0) 2034678734 <br>
+                <span class="fa fa-1x fa-envelope pb-3"></span> <a href="mailto:mat_prog_kisumu@safsys.com" >mat_prog_kisumu@safsys.com</a><br>
+                <span class="fa fa-1x fa-map-marker pb-3"></span> Naivas Supermarket opp Total Petrol Station
+            </div>
+        </div>
+    </div>
+
+{#<div id="copyright-bottom"class="sticky-bottom copyright">#}
+{#    <div class="d-flex center-align">#}
+{#        <h6 class="right-line">#}
+{#            <span class="fas fa-copyright"></span>Mat-trans 2017-2018#}
+{#        </h6>#}
+{##}
+{#        <h6 class="right-line">#}
+{#            <span class="fas fa-copyright"></span>Mat-trans 2017-2018#}
+{#        </h6>#}
+{##}
+{#        <h6 class="right-line">#}
+{#            <span class="fas fa-copyright"></span>Mat-trans2017-2018#}
+{#        </h6>#}
+{#    </div>#}
+{#</div>#}
 </body>
 </html>
