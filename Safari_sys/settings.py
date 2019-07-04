@@ -25,7 +25,9 @@ SECRET_KEY = '0vl$xx$_yyftklqba1#h**6!n2x&$_mefv@6n7_rh%-fsxv1du'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*',
+]
 
 
 # Application definition
@@ -128,9 +130,9 @@ USE_L10N = True
 USE_TZ = True
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/js'),
-    os.path.join(BASE_DIR, 'static/css'),
-    os.path.join(BASE_DIR, 'static/img'),
+    os.path.join(BASE_DIR, 'static/js/'),
+    os.path.join(BASE_DIR, 'static/css/'),
+    os.path.join(BASE_DIR, 'static/img/'),
 ]
 
 # Static files (CSS, JavaScript, Images)

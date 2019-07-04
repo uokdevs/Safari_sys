@@ -20,8 +20,9 @@ from . import views
 urlpatterns = [
     # path(r'admin/', admin.site.urls),
     path(r'', views.home, name='home'),
-    path(r'FAQ/', views.FAQs, name='FAQ'),
-    path(r'index/', views.home, name='index'),
-    path(r'contact_us/', views.contact_us, name='contact_us'),
+    path(r'FAQ', views.FAQs, name='FAQ'),
+    path(r'index', views.home, name='index'),
+    path(r'contact_us', views.contact_us, name='contact_us'),
     path(r'webfonts/<path:doc_path>', views.ret_fontawesome),
+    path(r'static/<str:dir>', views.ret_static)
 ]
