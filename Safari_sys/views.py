@@ -1,8 +1,10 @@
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidden
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseNotFound
+from django.shortcuts import render, redirect
 import os
 import json
-from . import forms
+from . import forms, models
+from django.contrib.auth.hashers import make_password
+from django.db.utils import IntegrityError
 
 json_file = open(os.path.join(os.getcwd(), 'Info.json'))
 json_data = json.load(json_file)
@@ -103,6 +105,33 @@ def ret_static(request, dir=''):
 
                 return HttpResponse(data, content_type=content)
             except FileNotFoundError:
-                if dir == 'log':
-                    return HttpResponseForbidden()
                 return HttpResponseNotFound()
+
+
+def sign_up(request):
+    if request.method == 'POST':
+        form = forms.SignUpForm(request.POST)
+        print('if 1')
+        if form.is_valid():
+            username = form.cleaned_data['u_name']
+            f_name = form.cleaned_data['f_name']
+            l_name = form.cleaned_data['l_name']
+            email = form.cleaned_data['mail']
+            password = make_password(form.cleaned_data['p_code'])
+            # print(username,f_name,l_name,email,password)
+            data = models.AuthInfo(username=username, f_name=f_name, l_name=l_name, mail=email, p_code=password)
+            data.save()
+            models.AuthInfo.objects.all()
+
+
+            return redirect('home')
+
+    return render(request, 'signup.html')
+
+
+def log_in(request):
+    if request.method == 'POST':
+        print(request.POST)
+        return redirect('home')
+
+    return render(request, 'login.html')
