@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {% load static %}
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo-round.ico' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'regular.min.css' %}">
+    <link rel="stylesheet" href="{% static 'solid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'v4-shims.min.css' %}">
+    <script type="text/javascript" src="{% static 'jquery-2.1.3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'auth.css' %}">
+    <title>Matatu | Log in</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <div class="container rounded p-0" style="width: 400px" id="login-container">
+            <div id="login-header" class="rounded" style="background-color: dodgerblue">
+                <div class="pt-3 pl-5 pb-1">
+                    <span class="fa fa-user fa-3x"></span>
+                </div>
+
+                <div>
+                    <h2>Log in</h2>
+                </div>
+            </div>
+            <table id="data">
+                <tr>
+                    <td>Username: </td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="auth_username" required></td>
+                </tr>
+                <tr>
+                    <td>Password: </td>
+                </tr>
+                <tr>
+                    <td><input type="password" name="auth_password" required></td>
+                </tr>
+            </table>
+
+            <div>
+                <button type="submit" class="btn btn-lg btn-danger">Submit</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
