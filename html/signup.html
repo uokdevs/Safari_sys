@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="" method="post" class="">
+        {% csrf_token %}
+        <div>
+            <table>
+                <tr>
+                    <td>Username: </td>
+                    <td><input type="text" name="u_name" required></td>
+                </tr>
+
+                <tr>
+                    <td>First name: </td>
+                    <td><input type="text" name="f_name" required></td>
+                </tr>
+
+                <tr>
+                    <td>Last name: </td>
+                    <td><input type="text" name="l_name" required></td>
+                </tr>
+
+                <tr>
+                    <td>Email: </td>
+                    <td><input type="email" name="mail" required></td>
+                </tr>
+
+                <tr>
+                    <td>Password: </td>
+                    <td><input type="password" name="p_code" id="p1"></td>
+                </tr>
+
+                <tr>
+                    <td>Confirm Password: </td>
+                    <td><input type="password" id="p2"></td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="2">
+                        <button type="button" class="btn btn-lg btn-danger" id="btn_submit">Submit</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+    <script>
+
+        (function () {
+            let btn = document.getElementById('btn_submit');
+
+            btn.addEventListener('click', function (event) {
+            let p1 = document.getElementById('p1').value;
+            let p2 = document.getElementById('p2').value;
+                if (p1 === p2) {
+                    btn.setAttribute('type', 'submit')
+                } else {
+                    alert('Passwords Do not match!')
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
