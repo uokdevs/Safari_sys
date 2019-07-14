@@ -2,55 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+
+    {% load static %}
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo-round.ico' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'regular.min.css' %}">
+    <link rel="stylesheet" href="{% static 'solid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'v4-shims.min.css' %}">
+    <link rel="stylesheet" href="{% static 'auth.css' %}">
+
+    <script type="text/javascript" src="{% static 'jquery-2.1.3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
+    <title>MatProg | Sign Up</title>
 </head>
 <body>
 
-    <form action="" method="post" class="">
-        {% csrf_token %}
-        <div>
-            <table>
-                <tr>
-                    <td>Username: </td>
-                    <td><input type="text" name="u_name" required></td>
-                </tr>
+    <div class="container">
+        <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                <h3 class="card-title mt-3 text-center pb-2">Create Account</h3>
 
-                <tr>
-                    <td>First name: </td>
-                    <td><input type="text" name="f_name" required></td>
-                </tr>
+                <form method="post" id="the-form">
+                    {% csrf_token %}
+                    <div class="form-group input-group" style="width: 300px">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+                        <input class="form-control" type="text" name="username" required placeholder="UserName">
+                    </div>
+                     <div class="form-group input-group">
+                        <input class="form-control" type="text" name="first_name" required placeholder="First Name">
+                    </div>
+                     <div class="form-group input-group">
+                        <input class="form-control" type="text" name="last_name" required placeholder="Last Name">
+                    </div>
 
-                <tr>
-                    <td>Last name: </td>
-                    <td><input type="text" name="l_name" required></td>
-                </tr>
+                     <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                        </div>
+                        <input class="form-control" type="email" name="email" required placeholder="Email Address">
+                     </div>
+                     <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                        </div>
+                        <input class="form-control" type="password" id="p1" name="password" required placeholder="Password">
+                    </div>
 
-                <tr>
-                    <td>Email: </td>
-                    <td><input type="email" name="mail" required></td>
-                </tr>
+                    <div class="form-group input-group">
+                        <input class="form-control" type="password" id="p2" required placeholder="Confirm Password">
+                    </div>
+                    <div class="alert alert-danger" id="message">
+                        <strong>Warning! </strong>
+                        Password(s) do not match
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" id="btn_submit" type="button">Create Account</button>
+                    </div>
 
-                <tr>
-                    <td>Password: </td>
-                    <td><input type="password" name="p_code" id="p1"></td>
-                </tr>
-
-                <tr>
-                    <td>Confirm Password: </td>
-                    <td><input type="password" id="p2"></td>
-                </tr>
-                <tr>
-                    <td align="right" colspan="2">
-                        <button type="button" class="btn btn-lg btn-danger" id="btn_submit">Submit</button>
-                    </td>
-                </tr>
-            </table>
+                </form>
+            </article>
         </div>
-    </form>
-
+    </div>
     <script>
 
         (function () {
@@ -59,10 +78,14 @@
             btn.addEventListener('click', function (event) {
             let p1 = document.getElementById('p1').value;
             let p2 = document.getElementById('p2').value;
-                if (p1 === p2) {
-                    btn.setAttribute('type', 'submit')
-                } else {
-                    alert('Passwords Do not match!')
+                if (p1 === p2){
+                   document.getElementById('the-form').submit()
+                }else{
+                    let notify = document.getElementById('message');
+                    notify.style.visibility = 'visible';
+                    notify.style.position = 'relative';
+                    document.getElementById('p1').value = '';
+                    document.getElementById('p2').value = '';
                 }
             });
         })();
