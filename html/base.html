@@ -33,9 +33,34 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#contact-us" >Contact Us</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item pr-2">
                     <a class="nav-link" href="{% url 'FAQ' %}">FAQ's</a>
                 </li>
+
+                {% if request.user.is_authenticated %}
+                  <li class="nav-item" data-toggle="collapse" data-target="#user-actions">
+                      <a href="" class="nav-link">
+                          <span class="fa fa-user"></span>
+                          <span class="fa fa-caret-down"></span>
+                          {{ request.user.username }}
+                      </a>
+                  </li>
+                {% else %}
+                    <li class="nav-item pr-2 pb-2 pl">
+                        <a href="{% url 'login' %}">
+                            <button class="btn btn-lg btn-danger">Log in</button>
+                        </a>
+                    </li>
+                    <li class="nav-item pr-2 pb-2">
+                        <a href="{% url 'sign-up' %}">
+                            <button class="btn btn-lg btn-light">
+                                Sign up
+                            </button>
+                        </a>
+
+                    </li>
+                {% endif %}
+
             </ul>
         </div>
     </nav>
