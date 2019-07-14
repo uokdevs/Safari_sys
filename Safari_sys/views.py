@@ -3,8 +3,11 @@ from django.shortcuts import render, redirect
 import os
 import json
 from . import forms, models
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.db.utils import IntegrityError
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import UserCreationForm
+
 
 json_file = open(os.path.join(os.getcwd(), 'Info.json'))
 json_data = json.load(json_file)
@@ -111,19 +114,21 @@ def ret_static(request, dir=''):
 def sign_up(request):
     if request.method == 'POST':
         form = forms.SignUpForm(request.POST)
-        print('if 1')
-        if form.is_valid():
-            username = form.cleaned_data['u_name']
-            f_name = form.cleaned_data['f_name']
-            l_name = form.cleaned_data['l_name']
-            email = form.cleaned_data['mail']
-            password = make_password(form.cleaned_data['p_code'])
-            # print(username,f_name,l_name,email,password)
-            data = models.AuthInfo(username=username, f_name=f_name, l_name=l_name, mail=email, p_code=password)
-            data.save()
-            models.AuthInfo.objects.all()
+        form1 = forms.signupAuth(request.POST)
 
+        if form.is_valid() and form1.is_valid():
+            user = form1.save(commit=False)
+            user1 = form.save(commit=False)
 
+            # hash the plain text password
+            hashed = make_password(form.cleaned_data.get('password'))
+            user.password = hashed
+            user1.password = hashed
+
+            user.save()
+            user1.save()
+
+            login(request, user)
             return redirect('home')
 
     return render(request, 'signup.html')
@@ -131,7 +136,17 @@ def sign_up(request):
 
 def log_in(request):
     if request.method == 'POST':
-        print(request.POST)
-        return redirect('home')
+        form = forms.LoginForm(request.POST)
+        if form.is_valid():
+            uname = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password')
+            user = authenticate(username=uname, password=raw_password)
+            login(request, user)
+            return redirect('home')
 
     return render(request, 'login.html')
+
+
+def log_out(request):
+    logout(request)
+    return redirect('home')
