@@ -1,14 +1,1 @@
-{
-  "Destinations": [
-    "Nakuru",
-    "Nairobi",
-    "Kisumu",
-    "Eldoret",
-    "Kericho",
-    "Molo",
-    "Naivasha",
-    "Mombasa",
-    "Machackos"
-  ]
-
-}
+{"Destinations": ["nakuru", "nairobi", "kisumu", "eldoret", "kericho", "mombasa"], "routes": {"nakuru": {"nairobi": 1, "kisumu": 2, "eldoret": 3, "kericho": 4}, "nairobi": {"nakuru": 5, "kisumu": 6, "eldoret": 7, "kericho": 8, "mombasa": 9}, "kisumu": {"nakuru": 10, "kericho": 11, "eldoret": 12, "nairobi": 13}, "eldoret": {"nakuru": 14, "nairobi": 15, "kisumu": 16, "kericho": 17}, "kericho": {"nairobi": 18, "nakuru": 19, "kisumu": 20, "eldoret": 21}, "mombasa": {"nairobi": 22, "nakuru": 23}}, "str_route": {"1": "Nakuru-Nairobi", "2": "Nakuru-Kisumu", "3": "Nakuru-Eldoret", "4": "Nakuru-Kericho", "5": "Nairobi-Nakuru", "6": "Nairobi-Kisumu", "7": "Nairobi-Eldoret", "8": "Nairobi-Kericho", "9": "Nairobi-Mombasa", "10": "Kisumu-Nakuru", "11": "Kisumu-Kericho", "12": "Kisumu-Eldoret", "13": "Kisumu-Nairobi", "14": "Eldoret-Nakuru", "15": "Eldoret-Nairobi", "16": "Eldoret-Kisumu", "17": "Eldoret-Kericho", "18": "Kericho-Nairobi", "19": "Kericho-Nakuru", "20": "Kericho-Kisumu", "21": "Kericho-Eldoret", "22": "Mombasa-Nairobi", "23": "Mombasa-Nakuru"}}
