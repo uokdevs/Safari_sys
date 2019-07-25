@@ -2,15 +2,17 @@ from django import forms
 from . import models
 from django.contrib.auth.models import User
 
-# class BookingForm(forms.Form):
-#     geo_from = forms.CharField(label='from', max_length=100)
-#     geo_destination = forms.CharField(label='destination', max_length=100)
+
+class BookingForm(forms.Form):
+    fro = forms.CharField(max_length=100)
+    to = forms.CharField(max_length=100)
+    date = forms.DateField(widget=forms.DateInput())
 
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput())
-    remember = forms.BooleanField()
+    remember = forms.BooleanField(required=False)
 
 
 class SignUpForm(forms.ModelForm):

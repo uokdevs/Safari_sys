@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Safari_sys',
     'booking',
+    'accounts'
 ]
 
 MIDDLEWARE = [

@@ -1,24 +1,36 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect
 import os
 import json
-from . import forms, models
-from django.contrib.auth.hashers import make_password, check_password
-from django.db.utils import IntegrityError
+from . import forms
+from booking import models
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import UserCreationForm
+import datetime as dt
 
 
 json_file = open(os.path.join(os.getcwd(), 'Info.json'))
 json_data = json.load(json_file)
 
 dst = json_data['Destinations']
-const = 'Matatu Booking| '
+const = 'Matatu Booking | '
 
 
-def handle_post(rqst,):
-    form = forms.BookingForm(rqst)
+def available_destinations():
+    routes = json_data['routes']
+    arr = []
 
+    for a in routes:
+        b = routes[a]
+
+        temp = [a, '-->']
+        for x in b:
+            temp.append(x)
+
+        temp = str(temp)
+        arr.append(temp)
+
+    return arr
 
 # co-ordinate request and html responses
 def home(request):
@@ -29,7 +41,33 @@ def home(request):
     '''
 
     if request.method == 'POST':
-        handle_post(request)
+        form = forms.BookingForm(request.POST)
+
+        if form.is_valid():
+            fro = form.data.get('fro')
+            to = form.data.get('to')
+            datestr = [int(x) for x in (form.data.get('date').split('-'))]
+            date = dt.date(datestr[0], datestr[1], datestr[2])
+
+            to_exists = True
+            try:
+                route_id = json_data['routes'][fro][to]
+            except KeyError:
+                to_exists = False
+
+            if fro.lower() not in json_data['Destinations'] or not to_exists:
+                errors = [f'The route enter does not exist {fro.title()} --> {to.title()}', 'Available Routes']
+                errors += available_destinations()
+                return render(request, 'errors.html', {
+                    'errors': errors
+                })
+
+            if date < dt.date.today():
+                return render(request, 'errors.html', {
+                    'errors': ['Error: Invalid date. Date should be greater than or equal to today']
+                })
+
+            return HttpResponseRedirect(f'/booking/{fro}-{to}-{route_id}&date={date}')
 
     return render(request, 'index.html', {
         'title': const+'Booking Home',
@@ -45,7 +83,7 @@ def FAQs(request):
     '''
 
     if request.method == 'POST':
-        handle_post(request)
+        pass
 
     return render(request, 'FAQ.html', {
         'title': const+'FAQ\'s',
@@ -61,7 +99,7 @@ def contact_us(request):
     '''
 
     if request.method == 'POST':
-        handle_post(request)
+        pass
 
     return render(request, 'contact-us.html', {
         'title': 'Contact-us',
@@ -130,23 +168,50 @@ def sign_up(request):
 
             login(request, user)
             return redirect('home')
+        else:
+            return render(request, 'signup.html', {
+                'title': const+'Sign UP',
+                'errors': form.errors,
+                'email': form.data.get('email'),
+                'username': form.data.get('username'),
+                'f_name': form.data.get('first_name'),
+                'l_name': form.data.get('last_name'),
+            })
 
-    return render(request, 'signup.html')
+    return render(request, 'signup.html', {
+        'title': const + 'Sign Up',
+        'errors': None
+    })
 
 
 def log_in(request):
     if request.method == 'POST':
         form = forms.LoginForm(request.POST)
+
         if form.is_valid():
             uname = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password')
             user = authenticate(username=uname, password=raw_password)
-            login(request, user)
+
+            try:
+                login(request, user)
+            except AttributeError:
+
+                return render(request, 'login.html', {
+                    'title': const + ' Login',
+                    'invalid': True,
+                    'username': form.data.get('username'),
+                })
             return redirect('home')
 
-    return render(request, 'login.html')
+    return render(request, 'login.html', {
+        'title': const + ' Login',
+        'invalid': False
+    })
 
 
 def log_out(request):
     logout(request)
     return redirect('home')
+
+
