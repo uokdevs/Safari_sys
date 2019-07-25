@@ -1,25 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{% extends 'skeleton.html' %}
 
-    {% load static %}
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo-round.ico' %}">
-    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    <link rel="stylesheet" href="{% static 'all.min.css' %}">
-    <link rel="stylesheet" href="{% static 'fontawesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'regular.min.css' %}">
-    <link rel="stylesheet" href="{% static 'solid.min.css' %}">
-    <link rel="stylesheet" href="{% static 'v4-shims.min.css' %}">
-    <script type="text/javascript" src="{% static 'jquery-2.1.3.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'auth.css' %}">
-    <title>MatProg | Log in</title>
-</head>
-<body>
+{% block body %}
     <div class="container">
         <div class="card bg-light">
             <article class="card-body mx-auto" style="max-width: 400px">
@@ -28,11 +9,17 @@
                 <form method="post">
                     {% csrf_token %}
 
+                    {% if invalid %}
+                        <div class="form-group alert alert-danger">
+                            <strong>Invalid! </strong>
+                            Username or Password
+                        </div>
+                    {% endif %}
                     <div class="form-group input-group pb-3" style="width: 300px">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="username" required placeholder="Enter Username">
+                        <input type="text" class="form-control" name="username" required placeholder="Enter Username" value="{{ username }}">
                     </div>
                     <div class="form-group input-group pb-3" >
 
@@ -54,5 +41,4 @@
             </article>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

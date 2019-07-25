@@ -1,52 +1,31 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{% extends 'skeleton.html' %}
 
-    {% load static %}
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo-round.ico' %}">
-    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    <link rel="stylesheet" href="{% static 'all.min.css' %}">
-    <link rel="stylesheet" href="{% static 'fontawesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'regular.min.css' %}">
-    <link rel="stylesheet" href="{% static 'solid.min.css' %}">
-    <link rel="stylesheet" href="{% static 'v4-shims.min.css' %}">
-    <link rel="stylesheet" href="{% static 'auth.css' %}">
-
-    <script type="text/javascript" src="{% static 'jquery-2.1.3.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
-    <title>MatProg | Sign Up</title>
-</head>
-<body>
-
+{% block body %}
     <div class="container">
         <div class="card bg-light">
             <article class="card-body mx-auto" style="max-width: 400px;">
                 <h3 class="card-title mt-3 text-center pb-2">Create Account</h3>
-
+                <br>
                 <form method="post" id="the-form">
                     {% csrf_token %}
-                    <div class="form-group input-group" style="width: 300px">
+                    <div class="form-group input-group" style="width: 320px">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                         </div>
-                        <input class="form-control" type="text" name="username" required placeholder="UserName">
+                        <input class="form-control" type="text" name="username" required placeholder="Username" value="{{ username }}">
                     </div>
                      <div class="form-group input-group">
-                        <input class="form-control" type="text" name="first_name" required placeholder="First Name">
+                        <input class="form-control" type="text" name="first_name" required placeholder="First Name" value="{{ f_name }}">
                     </div>
                      <div class="form-group input-group">
-                        <input class="form-control" type="text" name="last_name" required placeholder="Last Name">
+                        <input class="form-control" type="text" name="last_name" required placeholder="Last Name" value="{{ l_name }}">
                     </div>
 
                      <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                         </div>
-                        <input class="form-control" type="email" name="email" required placeholder="Email Address">
+                        <input class="form-control" type="email" name="email" required placeholder="Email Address" value="{{ email }}">
                      </div>
                      <div class="form-group input-group">
                         <div class="input-group-prepend">
@@ -62,6 +41,14 @@
                         <strong>Warning! </strong>
                         Password(s) do not match
                     </div>
+                    {% if errors %}
+                        <div class="alert alert-danger">
+                            {% for error in errors %}
+                                <strong>Warning! </strong>
+                                The {{ error.title }} already exists <br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     <div class="form-group">
                         <button class="btn btn-primary btn-block" id="btn_submit" type="button">Create Account</button>
                     </div>
@@ -90,5 +77,4 @@
             });
         })();
     </script>
-</body>
-</html>
+{% endblock %}
