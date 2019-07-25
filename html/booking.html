@@ -1,0 +1,24 @@
+{% extends 'skeleton.html' %}
+
+{% block body %}
+<div class="row alert alert-dark">
+    {% load custom %}
+    {% for x in resultset %}
+        <div class="col-sm-12 col-md-4 col-lg-3">
+            <div class="card rounded" style="border: 1px solid black">
+                <div class="card-body">
+                    <p class="card-text">Departure time: {{ x|get_from_dict:'date' }} {{ x|get_from_dict:"depature" }}</p>
+                    <hr>
+                    <p class="card-text">Available Seats: {{ x|get_from_dict:'seats_left' }}</p>
+                    <hr>
+                    <p class="card-text">Price: KSH 500</p>
+                    <hr>
+                    <a href="{{ x|parse }}">
+                        <button class="btn btn-lg btn-danger">Book Now</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

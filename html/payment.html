@@ -1,0 +1,35 @@
+{% extends 'skeleton.html' %}
+
+{% block body %}
+     {% load static %}
+    <div class="container">
+    <div class="card bg-light">
+        <article class="card-body mx-auto">
+            <div class="text-center pb-3" style="width: 300px">
+                <img class="rounded img-circle" src="{% static 'mpesa.png' %}" alt="" style="width: 150px">
+            </div>
+
+            <form method="post" style="width: 300px">
+                {% csrf_token %}
+                <p class="card-text"> Amount: {{ price }}</p>
+            <hr>
+            <p class="card-text">Paybill: {{ paybill }}</p>
+            <hr>
+            <p class="card-text">Account No: {{ request.user.first_name.title }}</p>
+
+                <div class="form-group input-group pb-3" style="">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-dollar-sign"></i></span>
+                        </div>
+                        <input type="text" class="form-control" name="code" required placeholder="Enter Transaction Code">
+                </div>
+
+                <div class="form-group">
+                        <button class="btn btn-primary btn-block" id="btn_submit" type="submit">Complete</button>
+                </div>
+            </form>
+        </article>
+    </div>
+    </div>
+
+{% endblock %}

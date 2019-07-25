@@ -1,0 +1,68 @@
+{% extends 'skeleton.html' %}
+
+{%  block  body %}
+    {% load static %}
+    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+        <a class="navbar-brand"><img src="{% static 'logo.png' %}" alt="Logo"></a>
+        <button type="button" data-toggle="collapse" data-target="#dropDown" class="navbar-toggler navbar-inverse" >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="dropDown">
+            <ul class="nav nav-tabs  ml-auto navbar-nav">
+                <li class="active nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact-us" >Contact Us</a>
+                </li>
+                <li class="nav-item pr-2">
+                    <a class="nav-link" href="{% url 'FAQ' %}">FAQ's</a>
+                </li>
+
+                {% if request.user.is_authenticated %}
+                  <li class="nav-item" data-toggle="collapse" data-target="#user-actions">
+                      <a class="nav-link" id="drop">
+                          <span class="fa fa-user"></span>
+                          <span class="fa fa-caret-down"></span>
+                          {{ request.user.first_name.title }} {{ request.user.last_name.title }}
+                      </a>
+                      <div id="hide" class="pl-4 pr-4 pb-2" style="border-radius: 5px">
+                          <a href="#" class="nav-link">
+                              Account
+                          </a>
+
+                          <a href="#" class="nav-link">
+                              Settings
+                          </a>
+
+                          <a href="{% url 'logout' %}" class="nav-link">
+                              <span class="fa fa-lock"></span>
+                              Logout
+                          </a>
+                      </div>
+                  </li>
+                {% else %}
+                    <li class="nav-item pr-2 pb-2 pl">
+                        <a href="{% url 'login' %}">
+                            <button class="btn btn-lg btn-danger">Log in</button>
+                        </a>
+                    </li>
+                    <li class="nav-item pr-2 pb-2">
+                        <a href="{% url 'sign-up' %}">
+                            <button class="btn btn-lg btn-light">
+                                Sign up
+                            </button>
+                        </a>
+
+                    </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </nav>
+    <div class="container alert alert-danger rounded p-2">
+        {% for x in errors %}
+            <p>{{ x }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
