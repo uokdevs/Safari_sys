@@ -1,6 +1,7 @@
 {% extends 'skeleton.html' %}
 
 {% block body %}
+    {% load custom %}
     {% load static %}
     <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
         <a class="navbar-brand"><img src="{% static 'logo.png' %}" alt="Logo"></a>
@@ -27,7 +28,7 @@
                           {{ request.user.first_name.title }} {{ request.user.last_name.title }}
                       </a>
                       <div id="hide" class="pl-4 pr-4 pb-2" style="border-radius: 5px">
-                          <a href="/account/myaccount" class="nav-link">
+                          <a href="#" class="nav-link">
                               Account
                           </a>
 
@@ -61,55 +62,20 @@
         </div>
     </nav>
 
-{% block content %}
-
-{% endblock %}
-
-    <div class="jumbotron row p-2" id="contact-us">
-        <div class="col-sm-12 col-md-6 col-lg-4 surround">
-            <h3>Nakuru Office</h3>
-            <div class="pl-2">
-                <span class="fa fa-1x fa-phone pb-3 "></span> +254(0) 723455754 <br>
-                <span class="fa fa-1x fa-phone pb-3"></span> +254(0) 2034678734 <br>
-                <span class="fa fa-1x fa-envelope pb-3"></span> <a href="mailto:mat_prog_kisumu@safsys.com" >mat_prog_nairobi@safsys.com</a><br>
-                <span class="fa fa-1x fa-map-marker pb-3"></span> Mbukaki Building opposite Mololine Bus Stop
-            </div>
-        </div>
-
-        <div class="col-sm-12 col-md-6 col-lg-4 surround">
-            <h3>Nairobi Office</h3>
-            <div class="pl-2">
-                <span class="fa fa-1x fa-phone pb-3 "></span> +254(0) 723455754 <br>
-                <span class="fa fa-1x fa-phone pb-3"></span> +254(0) 2034678734 <br>
-                <span class="fa fa-1x fa-envelope pb-3"></span> <a href="mailto:mat_prog_kisumu@safsys.com" >mat_prog_nakuru@safsys.com</a><br>
-                <span class="fa fa-1x fa-map-marker pb-3"></span> Shopper Plaza on the Nakuru-Eldoret Highway
-            </div>
-        </div>
-
-        <div class="col-sm-12 col-md-6 col-lg-4 surround">
-            <h3>Kisumu Office</h3>
-            <div class="pl-2 ">
-                <span class="fa fa-1x fa-phone pb-3 "></span> +254(0) 723455754 <br>
-                <span class="fa fa-1x fa-phone pb-3"></span> +254(0) 2034678734 <br>
-                <span class="fa fa-1x fa-envelope pb-3"></span> <a href="mailto:mat_prog_kisumu@safsys.com" >mat_prog_kisumu@safsys.com</a><br>
-                <span class="fa fa-1x fa-map-marker pb-3"></span> Naivas Supermarket opp Total Petrol Station
-            </div>
-        </div>
-    </div>
-
-    <script type="text/javascript">
-        (function () {
-            let drop = document.getElementById('drop');
-            let hide = document.getElementById('hide');
-            hide.style.visibility = 'hidden';
-
-            drop.addEventListener('click', function () {
-                if (hide.style.visibility == 'hidden') {
-                    hide.style.visibility = 'visible';
-                }else{
-                    hide.style.visibility = 'hidden';
-                }
-            });
-        })();
-    </script>
+        <table class="table table-bordered">
+            <tr class="font-weight-bold">
+                <td>Transaction Id</td>
+                <td>Destination</td>
+                <td>Departure Time</td>
+                <td>Time Booked</td>
+            </tr>
+            {% for x in rows %}
+                <tr>
+                    <td>{{ x|get_from_dict:'transaction_id' }}</td>
+                    <td>{{ x|get_from_dict:'str_route' }}</td>
+                    <td>{{ x|get_from_dict:'departure_date' }} {{ x|get_from_dict:'departure_time' }}</td>
+                    <td>{{ x|get_from_dict:'date_booked' }} {{ x|get_from_dict:'time_booked' }}</td>
+                </tr>
+            {% endfor %}
+        </table>
 {% endblock %}
