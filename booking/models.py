@@ -12,6 +12,9 @@ class BusData(models.Model):
 
 
 class Booked(models.Model):
+    transaction_id = models.CharField(max_length=100)
+    departure_time = models.TimeField()
+    departure_date = models.DateField()
     date_booked = models.DateField()
     time_booked = models.TimeField()
     owner = models.ForeignKey(

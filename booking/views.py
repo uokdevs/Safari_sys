@@ -14,10 +14,11 @@ def show_available_buses(request, fro='', dst='', route_id=-1, year='', month=''
     if request.user.is_authenticated:
         route_id = int(route_id)
         date = dt.date(year, month, day)
-        resultset = models.BusData.objects.filter(route_id=route_id, date=date).values().order_by('depature')
+        resultset = models.BusData.objects.filter(route_id=route_id, date=date, seats_left__gt=0).values().order_by('depature')
 
         return render(request, 'booking.html', {
-            'resultset': resultset
+            'resultset': resultset,
+            'title': 'MatTrans | Booking'
         })
     else:
         return redirect('/login')
@@ -41,9 +42,13 @@ def book(request, id=''):
                 # print(id, type(id))
                 # raise ImportError
                 authinfo_object = AuthInfo.objects.filter(username=request.user.username)[0]
-                time = dt.datetime.now().time()
-                date = dt.date.today()
-                inst = models.Booked(date_booked=date, time_booked=time, owner=authinfo_object, str_route=route)
+                departure_time = mod.depature
+                departure_date = mod.date
+                time_booked = dt.datetime.now().time()
+                date_booked = dt.date.today()
+                inst = models.Booked(date_booked=date_booked, time_booked=time_booked, owner=authinfo_object,
+                                     str_route=route, transaction_id=form.data.get('code').upper(),
+                                     departure_date=departure_date, departure_time=departure_time)
                 inst.save()
 
                 return redirect('/')
@@ -52,6 +57,7 @@ def book(request, id=''):
         return render(request, 'payment.html', {
             'price': '500',
             "paybill": paybill,
+            'title': 'MatTrans | Payment'
         })
 
     else:

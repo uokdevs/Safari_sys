@@ -51,7 +51,7 @@ def home(request):
 
             to_exists = True
             try:
-                route_id = json_data['routes'][fro][to]
+                route_id = json_data['routes'][fro.lower()][to.lower()]
             except KeyError:
                 to_exists = False
 
@@ -59,12 +59,14 @@ def home(request):
                 errors = [f'The route enter does not exist {fro.title()} --> {to.title()}', 'Available Routes']
                 errors += available_destinations()
                 return render(request, 'errors.html', {
-                    'errors': errors
+                    'errors': errors,
+                    'title': 'Error!'
                 })
 
             if date < dt.date.today():
                 return render(request, 'errors.html', {
-                    'errors': ['Error: Invalid date. Date should be greater than or equal to today']
+                    'errors': ['Error: Invalid date. Date should be greater than or equal to today'],
+                    'title': 'Error!'
                 })
 
             return HttpResponseRedirect(f'/booking/{fro}-{to}-{route_id}&date={date}')
